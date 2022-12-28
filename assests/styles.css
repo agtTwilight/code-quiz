@@ -23,7 +23,7 @@ main {
 }
 
 .box {
-        /* display: flex; */
+        display: none;
         flex-direction: column;
         justify-content: center;
         text-align: center;
@@ -31,3 +31,11 @@ main {
         width: 100%;
         height: 100%;
 }
+
+#start {
+        display: flex;
+}
+
+/* TODO style list elements and add hover features */
+/* TODO style box buttons */
+/* TODO style box h1's */
