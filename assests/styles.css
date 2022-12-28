@@ -32,6 +32,13 @@ main {
         height: 100%;
 }
 
+#deductions {
+        position: absolute;
+        right: 0;
+        transform: translateY(20px);
+        color: crimson;
+}
+
 #start {
         display: flex;
 }
@@ -39,3 +46,4 @@ main {
 /* TODO style list elements and add hover features */
 /* TODO style box buttons */
 /* TODO style box h1's */
+/* TODO make deductions have transitions &/or fade away */
