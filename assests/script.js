@@ -2,7 +2,7 @@ const boxEl =  document.querySelectorAll(".box");
 const finalDisplay = document.querySelector("#final")
 var currentDisplay = document.querySelector("#start");
 var deductions = document.querySelector("#deductions")
-var timeCount = document.querySelector("span")
+var timeDisplay = document.querySelector("span")
 
 // has to be globally scoped so two functions can update it at once
 var secondsLeft = 101
@@ -16,7 +16,7 @@ for (i = 1; i < boxEl.length; i ++) {
 // On button press, start the quiz
 currentDisplay.children[1].addEventListener("click", function(event){
         transitionDisplay()
-        quizStart()
+        quiz()
         timer()
 })
 
@@ -29,18 +29,19 @@ function transitionDisplay() {
 }
 
 // Click function to move to the next question
-function quizStart() {
+function quiz() {
         for (i = 1; i < boxEl.length -1; i ++) {
                 boxEl[i].addEventListener("click", function(event) {
                         var element = event.target;
-                        console.log(element)
                 
-                        // TODO add feedback on answer click ("incorrect."/"correct!")
                         if (element.matches("li")){
                                 // check if their answer was correct
                                 if (element.getAttribute("data-answer") === "false") {
                                         secondsLeft = secondsLeft-10
                                         deductions.textContent = "-10"
+                                        boxEl[displaysAvailable[0]].children[2].textContent = "Incorrect."
+                                } else {
+                                        boxEl[displaysAvailable[0]].children[2].textContent = "Correct!"
                                 }
                                 transitionDisplay()
                         }
@@ -52,8 +53,7 @@ function timer() {
         // var secondsLeft = 101;
         var timerInterval = setInterval(function() {
                 secondsLeft--;
-                timeCount.textContent = secondsLeft;
-                console.log(secondsLeft)
+                timeDisplay.textContent = secondsLeft;
 
                 // in case they finish
                 if (displaysAvailable.length === 0) {
