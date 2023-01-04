@@ -1,5 +1,6 @@
 const boxEl =  document.querySelectorAll(".box");
 const quizButtons = document.querySelectorAll(".quizBtn")
+const resetButton= document.querySelector("#resetBtn")
 const submitDisplay = document.querySelector("#submit");
 const scoresDisplay = document.querySelector("#highscores");
 // this is the highscore in header
@@ -30,6 +31,10 @@ quizButtons[0].addEventListener("click", function(){
 // Reset quiz
 quizButtons[1].addEventListener("click", function(){
         window.location.reload();
+})
+
+resetButton.addEventListener("click", function(){
+        leaderboard.textContent = ""
 })
 
 // View leaderboard
@@ -124,11 +129,11 @@ submitButton.addEventListener("click", function(){
 
         updateLeaderboard()
         transitionDisplay()
-        console.log(displaysAvailable)
 })
 
 // Display the leaderboard
 function updateLeaderboard() {
+        leaderboard.textContent = ""
         for (i = 0; i < scores.length; i++) {
                 var li = document.createElement("li");
                 li.textContent = scores[i][0] + " " + scores[i][1]
