@@ -2,12 +2,14 @@ const boxEl =  document.querySelectorAll(".box");
 const quizButtons = document.querySelectorAll(".quizBtn")
 const submitDisplay = document.querySelector("#submit");
 const scoresDisplay = document.querySelector("#highscores");
+// this is the highscore in header
+const placeholder = document.querySelector("#leaderboard")
 var currentDisplay = document.querySelector("#start");
 var deductions = document.querySelector("#deductions");
 var timeDisplay = document.querySelector("span");
 var initialsInput = document.querySelector("#initials");
 var submitButton = document.querySelector("#submitBtn");
-var leaderboard = document.querySelector("#leaderboard")
+var leaderboard = document.querySelector("#scores")
 
 // pulls scores from local storage
 var scores = JSON.parse(localStorage.getItem("scores"));
@@ -19,20 +21,23 @@ var secondsLeft = 101
 var displaysAvailable = []
 
 // On button press, start the quiz
-for (i of quizButtons) {
-        i.addEventListener("click", function(event){
-                event.preventDefault();
-                // boxEl.setAttribute("style", "display: none;");
+quizButtons[0].addEventListener("click", function(){
+        quiz()
+        transitionDisplay()
+        timer()
+})
 
-                for (i = 1; i < boxEl.length; i ++) {
-                        displaysAvailable.push(i)
-                }
-        
-                transitionDisplay()
-                quiz()
-                timer()
-        })
-}
+// Reset quiz
+quizButtons[1].addEventListener("click", function(){
+        window.location.reload();
+})
+
+// View leaderboard
+placeholder.addEventListener("click", function(){
+        currentDisplay.setAttribute("style", "display: none;")
+        scoresDisplay.setAttribute("style", "display: flex;")
+        updateLeaderboard()
+})
 
 // Moves you to the next unused display
 function transitionDisplay() {
@@ -44,6 +49,12 @@ function transitionDisplay() {
 
 // Click function to move to the next question
 function quiz() {
+        for (i = 1; i < boxEl.length; i ++) {
+                displaysAvailable.push(i)
+        }
+
+        secondsLeft = 101
+
         for (i = 1; i < boxEl.length -1; i ++) {
                 boxEl[i].addEventListener("click", function(event) {
                         var element = event.target;
@@ -108,6 +119,7 @@ submitButton.addEventListener("click", function(){
 
         updateLeaderboard()
         transitionDisplay()
+        console.log(displaysAvailable)
 })
 
 // Display the leaderboard
@@ -119,4 +131,3 @@ function updateLeaderboard() {
         }
 }
 
-updateLeaderboard
