@@ -105,12 +105,17 @@ submitButton.addEventListener("click", function(){
                 for (i = 0; i < scores.length; i++) {
                         if (secondsLeft >= scores[i][1]) {
                                 scores.splice(i, 0, user)
+                                if (scores.length > 10) {
+                                        scores.pop()
+                                }
                                 localStorage.setItem("scores", JSON.stringify(scores))
                                 break
                         } else if (i === scores.length - 1){
-                                scores.push(user)
-                                localStorage.setItem("scores", JSON.stringify(scores))
-                                break
+                                if (scores.length < 10) {
+                                        scores.push(user)
+                                        localStorage.setItem("scores", JSON.stringify(scores))
+                                        break
+                                }
                         } else {
                                 continue
                         }
