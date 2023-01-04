@@ -17,8 +17,9 @@
                 <section class="container">
                         <section id="start" class = "box">
                                 <h1>Welcome to the quiz!</h1>
-                                <button>Start</button>
+                                <button class="quizBtn">Start</button>
                         </section>
+                        <!-- TODO make one question box that updates the li's each iterations...it'll take some time! -->
                         <section id="q1" class = "box">
                                 <h1>Question 1</h1>
                                 <ol>
@@ -27,7 +28,6 @@
                                         <li data-answer = "false"></li>
                                         <li data-answer = "false"></li>
                                 </ol>
-                                <p class="fade-out"></p>
                         </section>
                         <section id="q2" class = "box">
                                 <h1>Question 2</h1>
@@ -37,7 +37,6 @@
                                         <li data-answer = "true"></li>
                                         <li data-answer = "false"></li>
                                 </ol>
-                                <p class="fade-out"></p>
                         </section>
                         <section id="q3" class = "box">
                                 <h1>Question 3</h1>
@@ -47,7 +46,6 @@
                                         <li data-answer = "true"></li>
                                         <li data-answer = "false"></li>
                                 </ol>
-                                <p class="fade-out"></p>
                         </section>
                         <section id="q4" class = "box">
                                 <h1>Question 4</h1>
@@ -57,7 +55,6 @@
                                         <li data-answer = "false"></li>
                                         <li data-answer = "false"></li>
                                 </ol>
-                                <p class="fade-out"></p>
                         </section>
                         <section id="q5" class = "box">
                                 <h1>Question 5</h1>
@@ -67,14 +64,20 @@
                                         <li data-answer = "false"></li>
                                         <li data-answer = "true"></li>
                                 </ol>
-                                <p class="fade-out"></p>
                         </section>
                         <!-- TODO add input box for user to put their initials and save their score. Submit button also -->
-                        <section id="final" class="box">
+                        <section id="submit" class="box">
                                 <h1>You've finished the quiz!</h1>
-                                <button>Submit</button>
+                                <input type="text" placeholder="initials" id="initials">
+                                <button id="submitBtn">Submit</button>
                                 <p class="fade-out"></p>
                         </section>
+                        <section id="highscores" class="box">
+                                <h1>Highscores:</h1>
+                                <ol id="leaderboard"></ol>
+                                <button class="quizBtn">Take the Quiz?</button>
+                        </section>
+                        <p></p>
                 </section>
         </main>
         <footer></footer>

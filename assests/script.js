@@ -1,24 +1,38 @@
 const boxEl =  document.querySelectorAll(".box");
-const finalDisplay = document.querySelector("#final")
+const quizButtons = document.querySelectorAll(".quizBtn")
+const submitDisplay = document.querySelector("#submit");
+const scoresDisplay = document.querySelector("#highscores");
 var currentDisplay = document.querySelector("#start");
-var deductions = document.querySelector("#deductions")
-var timeDisplay = document.querySelector("span")
+var deductions = document.querySelector("#deductions");
+var timeDisplay = document.querySelector("span");
+var initialsInput = document.querySelector("#initials");
+var submitButton = document.querySelector("#submitBtn");
+var leaderboard = document.querySelector("#leaderboard")
+
+// pulls scores from local storage
+var scores = JSON.parse(localStorage.getItem("scores"));
 
 // has to be globally scoped so two functions can update it at once
 var secondsLeft = 101
 
 // Gives me a list of index positions in boxEl that have not been displayed
 var displaysAvailable = []
-for (i = 1; i < boxEl.length; i ++) {
-        displaysAvailable.push(i)
-}
 
 // On button press, start the quiz
-currentDisplay.children[1].addEventListener("click", function(event){
-        transitionDisplay()
-        quiz()
-        timer()
-})
+for (i of quizButtons) {
+        i.addEventListener("click", function(event){
+                event.preventDefault();
+                // boxEl.setAttribute("style", "display: none;");
+
+                for (i = 1; i < boxEl.length; i ++) {
+                        displaysAvailable.push(i)
+                }
+        
+                transitionDisplay()
+                quiz()
+                timer()
+        })
+}
 
 // Moves you to the next unused display
 function transitionDisplay() {
@@ -39,9 +53,9 @@ function quiz() {
                                 if (element.getAttribute("data-answer") === "false") {
                                         secondsLeft = secondsLeft-10
                                         deductions.textContent = "-10"
-                                        boxEl[displaysAvailable[0]].children[2].textContent = "Incorrect."
+                                        // boxEl[displaysAvailable[0]].children[2].textContent = "Incorrect."
                                 } else {
-                                        boxEl[displaysAvailable[0]].children[2].textContent = "Correct!"
+                                        // boxEl[displaysAvailable[0]].children[2].textContent = "Correct!"
                                 }
                                 transitionDisplay()
                         }
@@ -56,7 +70,7 @@ function timer() {
                 timeDisplay.textContent = secondsLeft;
 
                 // in case they finish
-                if (displaysAvailable.length === 0) {
+                if (displaysAvailable.length === 1) {
                         clearInterval(timerInterval);
                 }
 
@@ -67,6 +81,42 @@ function timer() {
         }, 1000);
 }
 
-// TODO add event listener for quiz submission on final box.
-// TODO add emoji effects on click during completion screen (for pass and fail instances)
-// TODO add randomizer option for question & answer order (select boxes that pull out on div hover)
+submitButton.addEventListener("click", function(){
+        // in this case we don't prevent default such that the li's in highscore get reset on button press.
+        var user = [initialsInput.value, secondsLeft]
+
+        // make sure the object exists
+        if (!scores) {
+                scores = [user]
+                localStorage.setItem("scores", JSON.stringify(scores))
+        } else {
+                // append data to our obj and save locally
+                for (i = 0; i < scores.length; i++) {
+                        if (secondsLeft >= scores[i][1]) {
+                                scores.splice(i, 0, user)
+                                localStorage.setItem("scores", JSON.stringify(scores))
+                                break
+                        } else if (i === scores.length - 1){
+                                scores.push(user)
+                                localStorage.setItem("scores", JSON.stringify(scores))
+                                break
+                        } else {
+                                continue
+                        }
+                }
+        }
+
+        updateLeaderboard()
+        transitionDisplay()
+})
+
+// Display the leaderboard
+function updateLeaderboard() {
+        for (i = 0; i < scores.length; i++) {
+                var li = document.createElement("li");
+                li.textContent = scores[i][0] + " " + scores[i][1]
+                leaderboard.appendChild(li)
+        }
+}
+
+updateLeaderboard
