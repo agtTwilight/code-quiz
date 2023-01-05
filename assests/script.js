@@ -1,113 +1,87 @@
-const boxEl =  document.querySelectorAll(".box");
-const quizButtons = document.querySelectorAll(".quizBtn")
-const resetButton= document.querySelector("#resetBtn")
-const submitDisplay = document.querySelector("#submit");
-const scoresDisplay = document.querySelector("#highscores");
-// this is the highscore in header
-const placeholder = document.querySelector("#leaderboard")
-var currentDisplay = document.querySelector("#start");
-var deductions = document.querySelector("#deductions");
+// collect the first <span> element in index.html
 var timeDisplay = document.querySelector("span");
-var initialsInput = document.querySelector("#initials");
-var submitButton = document.querySelector("#submitBtn");
-var leaderboard = document.querySelector("#scores")
 
-// pulls scores from local storage
+// collect an array of all elements with class boxs
+var boxEl =  document.querySelectorAll(".box");
+
+// collect an array of all elements with class quizBtn
+var quizButtons = document.querySelectorAll(".quizBtn")
+
+// collect the element with ID resetBtn
+var resetButton = document.querySelector("#resetBtn")
+
+// collect the element with ID submit
+var submitDisplay = document.querySelector("#submit");
+
+// collect the element with ID leaderboardLink
+var leaderboardLink = document.querySelector("#leaderboardLink")
+
+// collect the element with ID start
+var currentDisplay = document.querySelector("#start");
+
+// collect the element with ID leaderboard
+var leaderboardDisplay = document.querySelector("#leaderboard");
+
+// collect the element with ID deductions
+var deductions = document.querySelector("#deductions");
+
+// collect the element with ID input
+var initialsInput = document.querySelector("#input");
+
+// collect the element with ID submitBtn
+var submitButton = document.querySelector("#submitBtn");
+
+// collect the element with ID scoresOl
+var scoresOl = document.querySelector("#scoresOl")
+
+// set scores with local storage
 var scores = JSON.parse(localStorage.getItem("scores"));
 
-// has to be globally scoped so two functions can update it at once
+// globally scope secondsLeft so two functions can update it at once (timer to countdown, and quiz to subtract on incorrect answer)
 var secondsLeft = 101
 
-// Gives me a list of index positions in boxEl that have not been displayed
+// Initialize an empty variable that we can update later
 var displaysAvailable = []
 
-// On button press, start the quiz
-quizButtons[0].addEventListener("click", function(){
+// On button click, start the quiz, transition displays, and set a timer
+quizButtons[0].addEventListener("click", function(event){
+        event.preventDefault()
         quiz()
         transitionDisplay()
         timer()
 })
 
-// Reset quiz
+// On button click, reload the page
 quizButtons[1].addEventListener("click", function(){
         window.location.reload();
 })
 
+// On button click, display scoreOl as an empty list, and set local storage to an empty array
 resetButton.addEventListener("click", function(){
-        leaderboard.textContent = ""
+        scoresOl.textContent = ""
+        localStorage.setItem("scores", JSON.stringify([]))
 })
 
-// View leaderboard
-placeholder.addEventListener("click", function(){
+// On text click, display the leaderboard
+leaderboardLink.addEventListener("click", function(){
         currentDisplay.setAttribute("style", "display: none;")
-        scoresDisplay.setAttribute("style", "display: flex;")
+        leaderboardDisplay.setAttribute("style", "display: flex;")
         updateLeaderboard()
 })
 
-// Moves you to the next unused display
-function transitionDisplay() {
-        currentDisplay.setAttribute("style", "display: none;")
-        currentDisplay = boxEl[displaysAvailable[0]]
-        currentDisplay.setAttribute("style", "display: flex;")
-        displaysAvailable.shift()
-}
-
-// Click function to move to the next question
-function quiz() {
-        for (i = 1; i < boxEl.length; i ++) {
-                displaysAvailable.push(i)
-        }
-
-        secondsLeft = 101
-
-        for (i = 1; i < boxEl.length -1; i ++) {
-                boxEl[i].addEventListener("click", function(event) {
-                        var element = event.target;
-                
-                        if (element.matches("li")){
-                                // check if their answer was correct
-                                if (element.getAttribute("data-answer") === "false") {
-                                        secondsLeft = secondsLeft-10
-                                        deductions.textContent = "-10"
-                                        // boxEl[displaysAvailable[0]].children[2].textContent = "Incorrect."
-                                } else {
-                                        // boxEl[displaysAvailable[0]].children[2].textContent = "Correct!"
-                                }
-                                transitionDisplay()
-                        }
-                })
-        }
-}
-
-function timer() {
-        // var secondsLeft = 101;
-        var timerInterval = setInterval(function() {
-                secondsLeft--;
-                timeDisplay.textContent = secondsLeft;
-
-                // in case they finish
-                if (displaysAvailable.length === 1) {
-                        clearInterval(timerInterval);
-                }
-
-                // in case they dont finish
-                if (secondsLeft === 0) {
-                        // TODO make failiure screen pop up
-                }
-        }, 1000);
-}
-
 submitButton.addEventListener("click", function(){
         // in this case we don't prevent default such that the li's in highscore get reset on button press.
+        if (initialsInput.value != 0 ){
         var user = [initialsInput.value, secondsLeft]
-
-        // make sure the object exists
-        if (!scores) {
+        
+        // make sure the scores array exists, if not, create it
+        if (!scores || scores.length === 0) {
                 scores = [user]
                 localStorage.setItem("scores", JSON.stringify(scores))
         } else {
-                // append data to our obj and save locally
+                // Compare the value of the current users secondsLeft to the value of locally stored scores
                 for (i = 0; i < scores.length; i++) {
+                        // if the user score for secondsLeft is greater than any of the stored scores, add the current users score in the appriate position and exit the loop (if the new array of scores is >10, remove the last score in the array).
                         if (secondsLeft >= scores[i][1]) {
                                 scores.splice(i, 0, user)
                                 if (scores.length > 10) {
@@ -115,6 +89,7 @@ submitButton.addEventListener("click", function(){
                                 }
                                 localStorage.setItem("scores", JSON.stringify(scores))
                                 break
+                        // else, if the array of scores isn't >10, add the current user score to the end of the score array. If the array is 10, don't add the current user score to the scores array. 
                         } else if (i === scores.length - 1){
                                 if (scores.length < 10) {
                                         scores.push(user)
@@ -126,18 +101,79 @@ submitButton.addEventListener("click", function(){
                         }
                 }
         }
-
         updateLeaderboard()
         transitionDisplay()
+        } else {
+                alert("initials input cannot be left blank.")
+        }
 })
 
-// Display the leaderboard
+// Moves you to the next unused display
+function transitionDisplay() {
+        // set currentDisplay to display none, which will remove it from the page.
+        currentDisplay.setAttribute("style", "display: none;")
+        // using the boxEl and the displaysAvailable array, set the next display as the currentDisplay, and make it visible using display flex.
+        currentDisplay = boxEl[displaysAvailable[0]]
+        currentDisplay.setAttribute("style", "display: flex;")
+        // remove the first value of displaysAvailable so the next display will be new to the user.
+        displaysAvailable.shift()
+}
+
+// Click function to move to the next question
+function quiz() {
+        // for the length of boxEl, add a value to displays available that corresponds to the index position in boxEl of each display set to display none by defualt
+        for (i = 1; i < boxEl.length; i ++) {
+                displaysAvailable.push(i)
+        }
+        // for all of the questions, add an event listener on click
+        for (i = 1; i < boxEl.length -1; i ++) {
+                boxEl[i].addEventListener("click", function(event) {
+                        // record the target that the click event is triggered on
+                        var element = event.target;
+                        // if the target is a li, do something, else, do nothing
+                        if (element.matches("li")){
+                                // check if their answer was incorrect, if so, deduct 20seconds and let them know.
+                                if (element.getAttribute("data-answer") === "false") {
+                                        secondsLeft = secondsLeft-20
+                                        deductions.textContent = "-10"
+                                // if the answer was correct, give them positive feedback
+                                } else {
+                                }
+                                // in either case (as long as it was an li) bring them to the next question
+                                transitionDisplay()
+                        }
+                })
+        }
+}
+
+function timer() {
+        // make a timer that subtracts one on a 1000milisecond interval (every second)
+        var timerInterval = setInterval(function() {
+                secondsLeft--;
+                // every second, display the updated time remaining
+                timeDisplay.textContent = secondsLeft;
+
+                // in case they finish
+                if (displaysAvailable.length === 1) {
+                        clearInterval(timerInterval);
+                }
+
+                // in case they dont finish, display the leaderboard
+                if (secondsLeft === 0) {
+                        currentDisplay.setAttribute("style", "display: none;")
+                        leaderboardDisplay.setAttribute("style", "display: flex;")
+                        updateLeaderboard() 
+                }
+        }, 1000);
+}
+
+// create and append leaderboard li's based on the user data stored locally
 function updateLeaderboard() {
-        leaderboard.textContent = ""
+        scoresOl.textContent = ""
         for (i = 0; i < scores.length; i++) {
                 var li = document.createElement("li");
-                li.textContent = scores[i][0] + " " + scores[i][1]
-                leaderboard.appendChild(li)
+                li.textContent = scores[i][0] + " // " + scores[i][1]
+                scoresOl.appendChild(li)
         }
 }
 

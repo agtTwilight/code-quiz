@@ -16,6 +16,16 @@ main {
         border: solid black;
 }
 
+button {
+        color: white;
+        background: rgba(128, 0, 128);
+        border-radius: 3px;
+}
+
+button:hover {
+        background: rgba(128, 0, 128, 0.676);
+}
+
 .container {
         width: 33%;
         height: 40%;
@@ -32,6 +42,10 @@ main {
 
 .box > * {
         margin: 30px 0;
+}
+
+.box button {
+        width: 80px;
 }
 
 .box ol {
@@ -51,6 +65,16 @@ main {
         background: rgba(128, 0, 128, 0.676);
 }
 
+.buttons {
+        display: flex;
+        gap: 10px;
+}
+
+.submit {
+        display: flex;
+        gap: 10px;
+}
+
 #deductions {
         position: absolute;
         right: 0;
@@ -60,6 +84,33 @@ main {
 
 #start {
         display: flex;
+        justify-content: center;
+        align-items: center;
+}
+
+#submit {
+        justify-content: center;
+        align-items: center;
+}
+
+#buttons {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+}
+
+#leaderboard > * {
+        margin: 10px 0;
+}
+
+#leaderboard li:hover {
+        background: rgba(128, 0, 128);
+}
+
+#resetBtn {
+        width: fit-content;
 }
 
 /* TODO style list elements and add hover features */
