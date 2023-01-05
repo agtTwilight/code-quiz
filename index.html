@@ -9,7 +9,7 @@
 </head>
 <body>
         <header>
-                <p id="leaderboard">Highscore</p>
+                <p id="leaderboardLink">Leaderboard</p>
                 <p>Time: <span>0</span></p>
                 <p id="deductions" class="fade-out"><br></p>
         </header>
@@ -68,15 +68,19 @@
                         <!-- TODO add input box for user to put their initials and save their score. Submit button also -->
                         <section id="submit" class="box">
                                 <h1>You've finished the quiz!</h1>
-                                <input type="text" placeholder="initials" id="initials">
-                                <button id="submitBtn">Submit</button>
-                                <p class="fade-out"></p>
+                                <div class="submit">
+                                        <label for="">Enter Intials:</label>
+                                        <input type="text" id="input" required>
+                                        <button id="submitBtn">Submit</button>
+                                </div>
                         </section>
-                        <section id="highscores" class="box">
-                                <h1>Highscores:</h1>
-                                <ol id="scores"></ol>
-                                <button class="quizBtn">Go Back</button>
-                                <button id="resetBtn">Reset Leaderboard</button>
+                        <section id="leaderboard" class="box">
+                                <h1>Leaderboard:</h1>
+                                <ol id="scoresOl"></ol>
+                                <div id="buttons">
+                                        <button class="quizBtn">Go Back</button>
+                                        <button id="resetBtn">Clear History</button>
+                                </div>
                         </section>
                         <p></p>
                 </section>
