@@ -11,61 +11,60 @@
         <header>
                 <p id="leaderboardLink">Leaderboard</p>
                 <p>Time: <span>0</span></p>
-                <p id="deductions" class="fade-out"><br></p>
         </header>
         <main>
                 <section class="container">
                         <section id="start" class = "box">
-                                <h1>Welcome to the quiz!</h1>
+                                <h1>League of Legends Jungle Quiz</h1>
+                                <p>This quiz will test your knowledge of the jungle roll in popular MOBA, League of Legends. When you're ready to take the quiz, press the start button below. Once you finish your quiz you can submit your score and find out what rank you are in our leaderboard!</p>
                                 <button class="quizBtn">Start</button>
                         </section>
                         <!-- TODO make one question box that updates the li's each iterations...it'll take some time! -->
                         <section id="q1" class = "box">
-                                <h1>Question 1</h1>
+                                <h1>What time do the first jungle camps spawn?</h1>
                                 <ol>
-                                        <li data-answer = "true"></li>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "false"></li>
+                                        <li data-answer = "true">1:30</li>
+                                        <li data-answer = "false">1:00</li>
+                                        <li data-answer = "false">2:00</li>
+                                        <li data-answer = "false">0:45</li>
                                 </ol>
                         </section>
                         <section id="q2" class = "box">
-                                <h1>Question 2</h1>
+                                <h1>What time do scuttle crabs spawn in the 2023 season?</h1>
                                 <ol>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "true"></li>
-                                        <li data-answer = "false"></li>
+                                        <li data-answer = "false">3:15</li>
+                                        <li data-answer = "false">3:00</li>
+                                        <li data-answer = "true">3:30</li>
+                                        <li data-answer = "false">3:45</li>
                                 </ol>
                         </section>
                         <section id="q3" class = "box">
-                                <h1>Question 3</h1>
+                                <h1>Which of the following is NOT a jungle companion in the 2023 season?</h1>
                                 <ol>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "true"></li>
-                                        <li data-answer = "false"></li>
+                                        <li data-answer = "false">Mosstomper</li>
+                                        <li data-answer = "false">Gustwalker</li>
+                                        <li data-answer = "true">Emberstarter</li>
+                                        <li data-answer = "false">Scorchclaw</li>
                                 </ol>
                         </section>
                         <section id="q4" class = "box">
-                                <h1>Question 4</h1>
+                                <h1>Which clear, on average, will get you to level 3 the fastest?</h1>
                                 <ol>
-                                        <li data-answer = "true"></li>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "false"></li>
+                                        <li data-answer = "true">Red:Blue:Gromp</li>
+                                        <li data-answer = "false">Red:Krugs:Raptors</li>
+                                        <li data-answer = "false">Red:Raptors:Wolves</li>
+                                        <li data-answer = "false">Blue:Gromp:Wolves</li>
                                 </ol>
                         </section>
                         <section id="q5" class = "box">
-                                <h1>Question 5</h1>
+                                <h1>Which roll is most likely to type "jng diff" after losing lane?</h1>
                                 <ol>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "false"></li>
-                                        <li data-answer = "true"></li>
+                                        <li data-answer = "true">Top</li>
+                                        <li data-answer = "true">Mid</li>
+                                        <li data-answer = "true">Bot</li>
+                                        <li data-answer = "true">Support</li>
                                 </ol>
                         </section>
-                        <!-- TODO add input box for user to put their initials and save their score. Submit button also -->
                         <section id="submit" class="box">
                                 <h1>You've finished the quiz!</h1>
                                 <div class="submit">
@@ -82,7 +81,7 @@
                                         <button id="resetBtn">Clear History</button>
                                 </div>
                         </section>
-                        <p></p>
+                        <p id="feedback"></p>
                 </section>
         </main>
         <footer></footer>

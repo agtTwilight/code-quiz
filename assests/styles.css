@@ -1,9 +1,10 @@
 * {
-        margin: 0;
-        padding: 0;
+        margin: 0px;
+        padding: 0px;
 }
 
 header {
+        margin: 3px;
         display: flex;
         justify-content: space-between;
 }
@@ -13,7 +14,6 @@ main {
         justify-content: center;
         height: 90vh;
         width: 100vw;
-        border: solid black;
 }
 
 button {
@@ -24,24 +24,35 @@ button {
 
 button:hover {
         background: rgba(128, 0, 128, 0.676);
+        cursor: pointer;
 }
 
 .container {
-        width: 33%;
-        height: 40%;
-        /* border: solid salmon; */
+        width: 500px;
+        height: 250px;
 }
 
 .box {
+        margin-top: 30px;
+        padding: 5px;
         display: none;
         flex-direction: column;
         justify-content: center;
-        /* border: solid chartreuse; */
         width: 100%;
+        border-radius: 6px;
 }
 
 .box > * {
-        margin: 30px 0;
+        margin: 10px 0;
+}
+
+.box h1 {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.box p {
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
 }
 
 .box button {
@@ -56,6 +67,7 @@ button:hover {
 .box li {
         margin: 5px 0;
         padding: 3px;
+        font-family: Arial, Helvetica, sans-serif;
         color: white;
         background: rgba(128, 0, 128);
         border-radius: 3px;
@@ -63,6 +75,7 @@ button:hover {
 
 .box li:hover {
         background: rgba(128, 0, 128, 0.676);
+        cursor: pointer;
 }
 
 .buttons {
@@ -73,13 +86,6 @@ button:hover {
 .submit {
         display: flex;
         gap: 10px;
-}
-
-#deductions {
-        position: absolute;
-        right: 0;
-        transform: translateY(20px);
-        color: crimson;
 }
 
 #start {
@@ -107,13 +113,23 @@ button:hover {
 
 #leaderboard li:hover {
         background: rgba(128, 0, 128);
+        cursor: auto;
 }
 
 #resetBtn {
         width: fit-content;
 }
 
-/* TODO style list elements and add hover features */
-/* TODO style box buttons */
-/* TODO style box h1's */
-/* TODO make deductions have transitions &/or fade away */
+#leaderboardLink:hover {
+        cursor: pointer;
+}
+
+@media screen and (max-width: 576px) {
+        .container {
+                width: 100%;
+        }
+
+        .box {
+                margin: 0px;
+        }
+}
