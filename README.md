@@ -3,7 +3,7 @@
 ## Description
 I made this mini-quiz to showcase my skills in Javascript, and satisfy one of my bootcamps homework requirements. No starter code was provided for this project. The question cards are saved as a class of box. Question boxes can be edited, added, or removed, and the Javascript will work to cycle through all questions and displays correctly. On page load the javascript collects every element with class box as a variable called boxEl. On quiz start, the index of each of these elements is added to an array, which allows the quiz function to index within the boxEl variable, and update the css display property to switch between question displays. The time remaing upon quiz completion is saved to local storage, including the users initials. Theses "scores" are then appended as li's to the leaderboard ordered list. Only local storage has been used, as that is what we have learned at this point! Should you like to play with your friends and see who can get the best time, try it out!!
 
-Link to deployed website:
+Link to deployed website: https://agttwilight.github.io/code-quiz/
 
 ## Tutorial
 Interactions:
