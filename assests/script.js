@@ -34,6 +34,9 @@ var submitButton = document.querySelector("#submitBtn");
 // collect the element with ID scoresOl
 var scoresOl = document.querySelector("#scoresOl")
 
+// collect the element with ID of feedback
+var feedbackEl = document.querySelector("#feedback")
+
 // set scores with local storage
 var scores = JSON.parse(localStorage.getItem("scores"));
 
@@ -70,6 +73,7 @@ leaderboardLink.addEventListener("click", function(){
 })
 
 submitButton.addEventListener("click", function(){
+        feedbackEl.textContent = ""
         // in this case we don't prevent default such that the li's in highscore get reset on button press.
         if (initialsInput.value != 0 ){
         var user = [initialsInput.value, secondsLeft]
@@ -135,9 +139,10 @@ function quiz() {
                                 // check if their answer was incorrect, if so, deduct 20seconds and let them know.
                                 if (element.getAttribute("data-answer") === "false") {
                                         secondsLeft = secondsLeft-20
-                                        deductions.textContent = "-10"
+                                        feedbackEl.textContent = "incorrect."
                                 // if the answer was correct, give them positive feedback
                                 } else {
+                                        feedbackEl.textContent = "Correct!"
                                 }
                                 // in either case (as long as it was an li) bring them to the next question
                                 transitionDisplay()
